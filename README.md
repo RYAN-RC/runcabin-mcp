@@ -45,6 +45,34 @@ claude mcp add --transport http runcabin https://runcabin.com/mcp
 `https://runcabin.com/mcp` (each tool opens the browser sign-in on first use).
 Full per-tool instructions: https://runcabin.com/connect
 
+### Using DeepSeek (or any other model)?
+
+The DeepSeek app has no connector support, but RunCabin works with any model -
+the MCP connection belongs to your client, not the model. Run a DeepSeek (or
+GPT, Gemini, Llama, ...) model in an MCP-capable client and add the server there:
+
+**OpenCode** - in `opencode.json`:
+```json
+{
+  "mcp": {
+    "runcabin": {
+      "type": "remote",
+      "url": "https://runcabin.com/mcp"
+    }
+  }
+}
+```
+OpenCode detects the auth challenge and opens the browser sign-in on first use.
+
+**Cherry Studio** - Settings → MCP Servers → Add Server → type `streamableHttp`,
+URL `https://runcabin.com/mcp` (sign-in opens on first connect).
+
+**Other clients** - if yours supports remote (Streamable HTTP) servers, the URL
+above is all you need. If it only supports local/stdio servers, bridge it:
+```bash
+npx mcp-remote https://runcabin.com/mcp
+```
+
 ## Notes
 
 - The hosted service's source is not in this repository; this repo is the public
